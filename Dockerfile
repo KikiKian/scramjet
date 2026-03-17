@@ -9,12 +9,11 @@ LABEL description="Example application of Scramjet"
 
 WORKDIR /app
 
+RUN apk add --upgrade --no-cache python3 make g++ && npm install -g pnpm@10
+
 COPY ["package.json", "pnpm-lock.yaml", "./"]
-RUN apk add --upgrade --no-cache python3 make g++
-RUN npm install -g pnpm@10
 RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-ENTRYPOINT [ "node" ]
-CMD ["src/index.js"]
+CMD ["node", "src/index.js"]
